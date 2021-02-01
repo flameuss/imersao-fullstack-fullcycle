@@ -1,4 +1,4 @@
-module github.com/Flameuss/imersao-fullstack-fullcycle/codepix-go
+module github.com/Flameuss/codepix/codepix-g
 
 go 1.15
 
