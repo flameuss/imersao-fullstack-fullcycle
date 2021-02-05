@@ -29,6 +29,7 @@ type Transaction struct {
 	AccountFrom       *Account `valid:"-"`
 	Amount            float64  `json:"amount" valid:"notnull"`
 	PixKeyTo          *PixKey  `valid:"-"`
+	PixKeyIdTo        string   `gorm:"column:pix_key_id_to;type:uuid;not null" valid:"-"`
 	Status            string   `json:"status" valid:"notnull"`
 	Description       string   `json:"description" valid:"notnull"`
 	CancelDescription string   `json:"cancel_description" valid:"-"`
@@ -96,4 +97,3 @@ func (t *Transaction) Cancel(description string) error {
 	err := t.isValid()
 	return err
 }
- 

@@ -2,9 +2,9 @@ package model
 
 import (
 	"errors"
-	"time"
 	"github.com/asaskevich/govalidator"
-	 uuid "github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
+	"time"
 )
 
 type PixKeyRepositoryInterface interface {
@@ -19,7 +19,7 @@ type PixKey struct {
 	Base      `valid:"required"`
 	Kind      string   `json:"kind" valid:"notnull"`
 	Key       string   `json:"key" valid:"notnull"`
-	AccountID string   `json:"account_id" valid:"notnull"`
+	AccountID string   `gorm:"column:account_id;type:uuid;not null" valid:"-"`
 	Account   *Account `valid:"-"`
 	Status    string   `json:"status" valid:"notnull"`
 }
@@ -28,6 +28,7 @@ func (pixKey *PixKey) isValid() error {
 	_, err := govalidator.ValidateStruct(pixKey)
 
 	if pixKey.Kind != "email" && pixKey.Kind != "cpf" {
+
 		return errors.New("invalid type of key")
 	}
 
